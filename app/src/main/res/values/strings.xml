@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CoderWallpaper</string>
+    <string name="setting_wallpaper">设置壁纸</string>
+    <string name="display_clock">显示时间</string>
+    <string name="display_second">显示秒</string>
+    <string name="auto_dark">自动深色（06:00 - 20:00）</string>
+    <string name="jike_1024">即刻 1024（使用1024秒）</string>
+</resources>
