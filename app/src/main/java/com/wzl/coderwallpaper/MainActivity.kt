@@ -7,10 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 
@@ -64,6 +66,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
             }
+        }
+        findViewById<AppCompatImageView>(R.id.appResourceInfoView).setOnClickListener {
+            val uri: Uri = Uri.parse("https://dribbble.com/kunchevsky")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
     }
 

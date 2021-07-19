@@ -17,7 +17,6 @@ import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
-import kotlinx.coroutines.*
 import java.util.*
 
 class MainWallpaperService : WallpaperService() {
