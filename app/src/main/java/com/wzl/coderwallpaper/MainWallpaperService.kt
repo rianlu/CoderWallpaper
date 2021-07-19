@@ -129,7 +129,7 @@ class MainWallpaperService : WallpaperService() {
                 mClockPaint.color = ContextCompat.getColor(
                     this@MainWallpaperService,
                     if (!autoDark) {
-                        R.color.white
+                        R.color.black
                     } else {
                         if (hour in 6..19 && autoDark) {
                             R.color.black
