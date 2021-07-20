@@ -40,6 +40,14 @@ class MainActivity : AppCompatActivity() {
         autoDarkSwitch.isChecked = sp.getBoolean("auto_dark", true)
         jikeSwitch.isChecked = sp.getBoolean("jike_1024", true)
 
+        autoDarkSwitch.text =
+            getString(
+                if (sp.getBoolean("always_dark", false)) {
+                    R.string.always_dark
+                } else {
+                    R.string.auto_dark
+                }
+            )
         findViewById<ExtendedFloatingActionButton>(R.id.settingWallpaperBtn).setOnClickListener {
             val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
             intent.putExtra(
@@ -60,6 +68,10 @@ class MainActivity : AppCompatActivity() {
         autoDarkSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             changeAutoDark(isChecked)
         }
+        autoDarkSwitch.setOnLongClickListener {
+            changeDarkType()
+            true
+        }
         jikeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (checkAccessPermission()) {
                 changeJikeUseStats(isChecked)
@@ -67,6 +79,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
             }
         }
+
         findViewById<AppCompatImageView>(R.id.appResourceInfoView).setOnClickListener {
             val uri: Uri = Uri.parse("https://dribbble.com/kunchevsky")
             val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -125,5 +138,22 @@ class MainActivity : AppCompatActivity() {
         } catch (e: PackageManager.NameNotFoundException) {
             false
         }
+    }
+
+    /**
+     * 切换自动深色/总是深色
+     */
+    private fun changeDarkType() {
+        val alwaysDark = sp.getBoolean("always_dark", false)
+        val editor = sp.edit()
+        editor.putBoolean("always_dark", !alwaysDark)
+        editor.apply()
+        autoDarkSwitch.text = getString(
+            if (!alwaysDark) {
+                R.string.always_dark
+            } else {
+                R.string.auto_dark
+            }
+        )
     }
 }

@@ -4,6 +4,7 @@
     <string name="display_clock">显示时间</string>
     <string name="display_second">显示秒</string>
     <string name="auto_dark">自动深色（06:00 - 20:00）</string>
+    <string name="always_dark">总是深色</string>
     <string name="jike_1024">即刻 1024（使用1024秒）</string>
     <string name="app_author">APP 作者：<a href="">FaceBlack</a></string>
     <string name="resource_reference_author">资源来源：<a href="https://dribbble.com/kunchevsky">Alex Kunchevsky</a></string>

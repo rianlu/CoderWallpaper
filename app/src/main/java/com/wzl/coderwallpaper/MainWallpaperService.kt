@@ -28,6 +28,7 @@ class MainWallpaperService : WallpaperService() {
     private var displayClock = true
     private var displaySecond = true
     private var autoDark = true
+    private var alwaysDark = false
     private var jike_1024 = true
     private var overTime = false
     private lateinit var sp: SharedPreferences
@@ -77,6 +78,7 @@ class MainWallpaperService : WallpaperService() {
             displayClock = sp.getBoolean("display_clock", true)
             displaySecond = sp.getBoolean("display_second", true)
             autoDark = sp.getBoolean("auto_dark", true)
+            alwaysDark = sp.getBoolean("always_dark", true)
             jike_1024 = sp.getBoolean("jike_1024", true)
         }
 
@@ -128,13 +130,21 @@ class MainWallpaperService : WallpaperService() {
                 val clockPointY = screenHeight / 8
                 mClockPaint.color = ContextCompat.getColor(
                     this@MainWallpaperService,
-                    if (!autoDark) {
-                        R.color.black
+                    if (alwaysDark) {
+                        if (autoDark) {
+                            R.color.white
+                        } else {
+                            R.color.black
+                        }
                     } else {
-                        if (hour in 6..19 && autoDark) {
+                        if (!autoDark) {
                             R.color.black
                         } else {
-                            R.color.white
+                            if (hour in 6..19 && autoDark) {
+                                R.color.black
+                            } else {
+                                R.color.white
+                            }
                         }
                     }
                 )
@@ -146,23 +156,34 @@ class MainWallpaperService : WallpaperService() {
             val calendar = Calendar.getInstance()
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             // 画布颜色
-            if (!autoDark) {
-                canvas.drawColor(
-                    ContextCompat.getColor(
-                        this@MainWallpaperService, R.color.white
-                    )
-                )
-            } else {
+            if (alwaysDark) {
                 canvas.drawColor(
                     ContextCompat.getColor(
                         this@MainWallpaperService,
-                        if (hour in 6..19) {
-                            R.color.white
-                        } else {
+                        if (autoDark) {
                             R.color.black
+                        } else {
+                            R.color.white
                         }
                     )
                 )
+            } else {
+                if (!autoDark) {
+                    canvas.drawColor(
+                        ContextCompat.getColor(this@MainWallpaperService, R.color.white)
+                    )
+                } else {
+                    canvas.drawColor(
+                        ContextCompat.getColor(
+                            this@MainWallpaperService,
+                            if (hour in 6..19) {
+                                R.color.white
+                            } else {
+                                R.color.black
+                            }
+                        )
+                    )
+                }
             }
         }
 
